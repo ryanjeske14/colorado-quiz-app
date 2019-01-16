@@ -86,7 +86,7 @@ function renderFinalScreen() {
 function handleSubmitButton() {
     // will be used to submit answer to question
     console.log('handleSubmitButton() ran');
-    $('.container').on('click', '.submitButton', event => {
+    $('.container').on('submit', 'form', event => {
         event.preventDefault();
         let answer = $('input:checked').val();
         console.log(answer);
