@@ -1,0 +1,38 @@
+h1,h2 {    
+text-align: center;
+margin-top: 200px;
+}
+
+button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+}
+
+fieldset {
+    width: 200px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+form {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.questionCount, .scoreCount {
+    text-align: center;
+}
+
+.correctAnswer, .overallScore {
+    text-align: center;
+}
+
+div > p {
+    font-size: larger;
+}
