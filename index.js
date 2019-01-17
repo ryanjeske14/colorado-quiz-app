@@ -3,9 +3,15 @@ let questionCount = 0;
 let score = 0;
 
 function questionTemplate() {
-    return `<h2>${STORE[questionCount].question}</h2>
+    return `
+    <div class="quizStats">
+        <p class="questionCount">Question: ${questionCount + 1}/${STORE.length}</p>
+        <p class="scoreCount">Score: ${score}/${STORE.length}</p>
+    </div>
+    <h2>${STORE[questionCount].question}</h2>
     <form role="form">
         <fieldset>
+        <div class="formElements">
             <label class="answerOption">
                 <input type="radio" value="${STORE[questionCount].answers[0]}" name="answer" required/>
                 <span>${STORE[questionCount].answers[0]}</span>
@@ -22,13 +28,11 @@ function questionTemplate() {
                 <input type="radio" value="${STORE[questionCount].answers[3]}" name="answer" required/>
                 <span>${STORE[questionCount].answers[3]}</span>
             </label>
-            <button type="submit" class="submitButton">Submit</button>
+            <div class="buttonContainer"><button type="submit" class="submitButton">SUBMIT</button></div>
+        </div>
         </fieldset>
     </form>
-    <div class="quizStats">
-        <p class="questionCount">Question: ${questionCount + 1}/${STORE.length}</p>
-        <p class="scoreCount">Score: ${score}/${STORE.length}</p>
-    </div>`
+`
 }
 
 function nextQuestion() {
@@ -50,25 +54,28 @@ function increaseScore() {
 function renderCorrectScreen() {
     // renders correct screen
     $('.container').html(`
-    <h1>Correct!</h1>
-    <button type="button" class="nextButton">Next Question</button>
     <div class="quizStats">
         <p class="questionCount">Question: ${questionCount + 1}/${STORE.length}</p>
         <p class="scoreCount">Score: ${score}/${STORE.length}</p>
     </div>
+    <img src="http://i1.wp.com/mauiwowiblog.files.wordpress.com/2014/08/hangloose.png?ssl=1" alt="hang loose logo" class="hangLoose">
+    <h2>Correct!</h2>
+    <button type="button" class="nextButton">NEXT</button>
     `)
 }
 
 function renderIncorrectScreen() {
     // renders correct screen
     $('.container').html(`
-    <h1>Incorrect</h1>
-    <p class="correctAnswer"><b>The correct answer is ${STORE[questionCount].correctAnswer}.</b></p>
-    <button type="button" class="nextButton">Next Question</button>
     <div class="quizStats">
         <p class="questionCount">Question: ${questionCount + 1}/${STORE.length}</p>
         <p class="scoreCount">Score: ${score}/${STORE.length}</p>
     </div>
+    <img src="https://www.marylandhealthconnection.gov/wp-content/uploads/2016/12/white-x-graphic.png" alt="incorrect symbol" class="xLogo">
+    <h2>Incorrect</h2>
+    <p class="correctAnswer"><b>The correct answer is ${STORE[questionCount].correctAnswer}.</b></p>
+    <button type="button" class="nextButton">NEXT</button>
+
     `)
 }
 
@@ -76,10 +83,10 @@ function renderFinalScreen() {
     $('.container').html(`
     <h1>Quiz Complete</h1>
     <div class="overallScore">
-        <p>Overall Score:</p>
-        <p>${score}/${STORE.length}</p>
+        <p class="finalScore">Overall Score:</p>
+        <p class="finalScore">${score}/${STORE.length}</p>
     </div>
-    <button type="button" class="restartButton">Start Over</button>
+    <button type="button" class="restartButton">START OVER</button>
     `)
 }
 
@@ -91,7 +98,6 @@ function handleSubmitButton() {
         let answer = $('input:checked').val();
         console.log(answer);
         console.log(STORE[questionCount].correctAnswer);
-        if (questionCount + 1 < STORE.length) {
         if (answer == STORE[questionCount].correctAnswer) {
             console.log('correct');
             // call function that renders correct screen
@@ -103,27 +109,20 @@ function handleSubmitButton() {
             // call function that renders incorrect screen
             renderIncorrectScreen();
         }
-        }
-        else {
-            console.log('render final screen');
-            // call function that renders final screen
-            if (answer == STORE[questionCount].correctAnswer) {
-            increaseScore();
-            renderFinalScreen();
-            }
-            else {
-                renderFinalScreen();
-            }
-        }   
-    });
+        });   
 }
 
 function handleNextButton() {
     // will be used to move to next question
     console.log('handleNextButton() ran');
     $('.container').on('click', '.nextButton', event => {
+    if (questionCount + 1 != STORE.length) {
         questionCount++;
         nextQuestion();
+    }
+    else {
+      renderFinalScreen();
+    }
     });
 }
 
