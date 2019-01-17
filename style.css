@@ -221,6 +221,7 @@ p {
     .logo {
         margin-top: 100px;
     }
+}
 
 @media screen and (min-width: 1020px) {
     .quizStats {

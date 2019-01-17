@@ -4,14 +4,14 @@ let score = 0;
 
 function questionTemplate() {
     return `
-    <div class="quizStats">
+    <section class="quizStats">
         <p class="questionCount">Question: ${questionCount + 1}/${STORE.length}</p>
         <p class="scoreCount">Score: ${score}/${STORE.length}</p>
-    </div>
+    </section>
     <h2>${STORE[questionCount].question}</h2>
     <form role="form">
         <fieldset>
-        <div class="formElements">
+        <section class="formElements">
             <label class="answerOption">
                 <input type="radio" value="${STORE[questionCount].answers[0]}" name="answer" required/>
                 <span>${STORE[questionCount].answers[0]}</span>
@@ -29,7 +29,7 @@ function questionTemplate() {
                 <span>${STORE[questionCount].answers[3]}</span>
             </label>
             <div class="buttonContainer"><button type="submit" class="submitButton">SUBMIT</button></div>
-        </div>
+        </section>
         </fieldset>
     </form>
 `
@@ -54,10 +54,10 @@ function increaseScore() {
 function renderCorrectScreen() {
     // renders correct screen
     $('.container').html(`
-    <div class="quizStats">
+    <section class="quizStats">
         <p class="questionCount">Question: ${questionCount + 1}/${STORE.length}</p>
         <p class="scoreCount">Score: ${score}/${STORE.length}</p>
-    </div>
+    </section>
     <img src="http://i1.wp.com/mauiwowiblog.files.wordpress.com/2014/08/hangloose.png?ssl=1" alt="hang loose logo" class="hangLoose">
     <h2>Correct!</h2>
     <button type="button" class="nextButton">NEXT</button>
@@ -67,10 +67,10 @@ function renderCorrectScreen() {
 function renderIncorrectScreen() {
     // renders correct screen
     $('.container').html(`
-    <div class="quizStats">
+    <section class="quizStats">
         <p class="questionCount">Question: ${questionCount + 1}/${STORE.length}</p>
         <p class="scoreCount">Score: ${score}/${STORE.length}</p>
-    </div>
+    </section>
     <img src="https://www.marylandhealthconnection.gov/wp-content/uploads/2016/12/white-x-graphic.png" alt="incorrect symbol" class="xLogo">
     <h2>Incorrect</h2>
     <p class="correctAnswer"><b>The correct answer is ${STORE[questionCount].correctAnswer}.</b></p>
@@ -82,10 +82,10 @@ function renderIncorrectScreen() {
 function renderFinalScreen() {
     $('.container').html(`
     <h1>Quiz Complete</h1>
-    <div class="overallScore">
+    <section class="overallScore">
         <p class="finalScore">Overall Score:</p>
         <p class="finalScore">${score}/${STORE.length}</p>
-    </div>
+    </section>
     <img src="http://pngimg.com/uploads/mountain/mountain_PNG10.png" alt="mountain logo" class="logo2">
     <button type="button" class="restartButton">START OVER</button>
     `)
@@ -131,7 +131,16 @@ function handleRestartButton() {
     // will be used to restart quiz on last screen
     console.log('handleRestartButton() ran');
     $('.container').on('click', '.restartButton', event => {
-        location.reload();
+        questionCount = 0;
+        score = 0;
+        $('.container').html(`
+            <img src="http://pngimg.com/uploads/mountain/mountain_PNG10.png" alt="mountain logo" class="logo">
+            <h1>
+                What do you know about Colorado?
+            </h1>
+
+            <button type="button" class="startButton">TAKE THE QUIZ</button>`);
+        handleStartButton();
     });
 }
 
