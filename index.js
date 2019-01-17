@@ -86,6 +86,7 @@ function renderFinalScreen() {
         <p class="finalScore">Overall Score:</p>
         <p class="finalScore">${score}/${STORE.length}</p>
     </div>
+    <img src="http://pngimg.com/uploads/mountain/mountain_PNG10.png" alt="mountain logo" class="logo2">
     <button type="button" class="restartButton">START OVER</button>
     `)
 }
